@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>PALS ANALYZE</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <meta charset="utf-8" />
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Roboto', sans-serif;
+      }
+      body {
+        height: 100vh;
+        width: 100vw;
+      }
+      #map {
+        height: 100%;
+      }
+      .card {
+        position: absolute;
+        top: 5em;
+        left: 3em;
+        background-color: darkseagreen;
+        padding: 3em 2em;
+      }
+      #placeDetails {
+        position: absolute;
+        top: 5em;
+        right: 3rem;
+        background-color: white;
+        padding: 1em;
+        display: none;
+        width: 40vw;
+        height: 80%;
+        overflow-y: scroll; 
+      }
+      #placeDetails th,
+      #placeDetails td {
+        padding: 2em;
+      }
+      .wrapper {
+        display: flex;
+        gap: 1em;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        
+      }
+      form{
+        display: flex;
+        flex-direction: column;
+        gap: 1em;
+      }
+      select{
+        width: 100%;
+        padding: 0.7em;
+        border-radius: 0.3em;
+      }
+      input{
+
+        /* border-radius: 0.3em; */
+        padding: 0.4em;
+        width: 100%;
+      }
+      .container{
+
+        /* border-radius: 0.3em; */
+        display: flex;
+        flex-direction: column;
+        gap: .5em;
+      }
+      button{
+        width: 100%;
+        padding: 1em .5em;
+        background-color: papayawhip;
+        border: 1px solid black;
+      }
+      #placeName{
+        text-transform: capitalize;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="map"></div>
+    <div class="card">
+      <div class="wrapper">
+        <h3>PALS ANALYZE</h3>
+        <form>
+          <div class="container">
+            <label for="location">Current Location</label>
+            <input type="text" placeholder="Enter Location" name="location" id="location" />
+          </div>
+          <div class="container">
+            <select name="places" id="places" onfocus="this.value=''">
+              <option value="restaurants">Restaurants</option>
+              <option value="hospitals">Hospitals</option>
+              <option value="schools">Schools</option>
+              <option value="metro station">Metro Stations</option>
+              <option value="bus stops">Bus Stops</option>
+              <option value="railway station">Railway Stations</option>
+              <option value="market">Supermarket</option>
+              <option value="police station">Police Station</option>
+              <option value="bank">Banks</option>
+              <option value="theatre">Cinema</option>
+            </select>
+          </div>
+          <div class="container">
+            <input
+              list="withinRadius"
+              placeholder="Radius"
+              name="radius"
+              id="radius"
+            />
+            <datalist id="withinRadius">
+              <option value="100"></option>
+              <option value="200"></option>
+              <option value="500"></option>
+              <option value="1000"></option>
+              <option value="1500"></option>
+              <option value="2000"></option>
+            </datalist>
+          </div>
+        </form>
+        <button onclick="getLoc();remMark();">Get Landmarks</button>
+      </div>
+    </div>
+    <table id="placeDetails">
+      <thead>
+        <tr>
+          <th id="placeName"></th>
+          <th>What3words</th>
+        </tr>
+      </thead>
+      <tbody id="placeInfo">
+
+      </tbody>
+    </table>
+
+    <script src="script.js">
+      // https://api.what3words.com/v3/convert-to-3wa?coordinates=51.53,43.12&language=en&key=58FC6URE
+    </script>
+    <script
+      defer
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCsJ8vVyCoHrvZuGxuhcwhlDEZtevVyoo8&libraries=places&callback=initialize"
+    ></script>
+  </body>
+</html>
